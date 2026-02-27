@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You 💖</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg1: #ff9a9e;
+      --bg2: #fecfef;
+      --bg3: #f6d5f7;
+      --accent: #ff4d6d;
+      --accent-soft: #ff89a3;
+      --accent-dark: #d63b56;
+      --card-bg: rgba(255, 255, 255, 0.14);
+      --card-border: rgba(255, 255, 255, 0.4);
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    body {
+      height: 100vh;
+      font-family: "Poppins", Arial, sans-serif;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top left, #ffd1ff 0, transparent 52%),
+        radial-gradient(circle at bottom right, #ffe8d6 0, transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    /* Floating bubbles */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.13);
+      animation: float 16s infinite ease-in-out;
+      pointer-events: none;
+      filter: blur(1px);
+    }
+
+    .bubble:nth-child(1) {
+      width: 180px;
+      height: 180px;
+      top: 2%;
+      left: 8%;
+      animation-duration: 18s;
+    }
+    .bubble:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      bottom: 12%;
+      right: 10%;
+      animation-duration: 14s;
+    }
+    .bubble:nth-child(3) {
+      width: 220px;
+      height: 220px;
+      bottom: -6%;
+      left: 24%;
+      animation-duration: 21s;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.8; }
+      50%  { transform: translateY(-40px) translateX(18px) scale(1.06); opacity: 1; }
+      100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.7; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: min(430px, 92vw);
+      padding: 26px 22px 26px;
+      border-radius: 26px;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.06));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      text-align: center;
+      animation: cardIn 0.6s ease-out;
+    }
+
+    @keyframes cardIn {
+      0% { transform: translateY(20px) scale(0.96); opacity: 0; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, 0.25);
+      margin-bottom: 10px;
+    }
+
+    .tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00ff9d;
+      box-shadow: 0 0 9px #00ff9d;
+    }
+
+    .tag span {
+      opacity: 0.9;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 6px;
+      font-family: "Pacifico", cursive;
+      letter-spacing: 0.04em;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      opacity: 0.95;
+      margin-bottom: 18px;
+    }
+
+    .heart-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      opacity: 0.9;
+      font-size: 0.88rem;
+    }
+
+    .heart-line span {
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .heart {
+      font-size: 1.2rem;
+      animation: beat 0.9s infinite;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      30%      { transform: scale(1.25); }
+      60%      { transform: scale(0.9); }
+    }
+
+    .heart.bounce {
+      animation: bounceHeart 0.5s ease;
+    }
+
+    @keyframes bounceHeart {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.3) translateY(-2px); }
+      60% { transform: scale(0.9) translateY(1px); }
+      100% { transform: scale(1); }
+    }
+
+    .message-box {
+      min-height: 80px;
+      padding: 14px 15px 16px;
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      font-size: 1.02rem;
+      line-height: 1.6;
+      margin-bottom: 8px;
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .message-box::before {
+      content: "💌";
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      opacity: 0.7;
+      font-size: 1.1rem;
+    }
+
+    #msg {
+      display: inline-block;
+      padding-right: 2px;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    #msg.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 7px;
+      background: transparent;
+      margin-left: 1px;
+      animation: blink 0.7s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      0%, 49%   { background: rgba(255, 255, 255, 0.85); }
+      50%, 100% { background: transparent; }
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      opacity: 0.82;
+      margin-bottom: 10px;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .hint {
+      text-align: left;
+    }
+
+    .progress {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .progress-bar-wrap {
+      width: 100%;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.22);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent-soft), #fff);
+      transition: width 0.25s ease-out;
+    }
+
+    .mode-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      opacity: 0.85;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .mode-pill {
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .mode-pill strong {
+      color: #ffe1ec;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.98rem;
+      padding: 10px 18px;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease, box-shadow 0.18s ease;
+      touch-action: manipulation;
+    }
+
+    .primary-btn {
+      background: #ffffff;
+      color: var(--accent);
+      font-weight: 600;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .primary-btn span.icon {
+      font-size: 1.15rem;
+    }
+
+    .secondary-btn {
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      font-weight: 400;
+    }
+
+    .secondary-btn.alt {
+      border-style: dashed;
+      font-size: 0.9rem;
+      padding-inline: 14px;
+    }
+
+    .music-on {
+      box-shadow: 0 0 12px rgba(255, 239, 255, 0.9);
+      border-color: #ffe1f4;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    button:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+    }
+
+    button:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      transform: none;
+      box-shadow: none;
+      cursor: default;
+    }
+
+    .footer-note {
+      font-size: 0.78rem;
+      opacity: 0.8;
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    .footer-note span {
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    .final-message {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .final-message.visible {
+      opacity: 0.9;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 22px 18px 22px;
+        border-radius: 22px;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      .subtitle {
+        font-size: 0.9rem;
+      }
+      .message-box {
+        font-size: 0.96rem;
+      }
+      .meta-row {
+        font-size: 0.74rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Decorative bubbles -->
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+
+  <div class="container">
+    <div class="tag">
+      <div class="tag-dot"></div>
+      <span>for my Babyyyy</span>
+    </div>
+
+    <h1>Hey Vijjuuuu 😏</h1>
+    <p class="subtitle">I made this little page just to flirt with you, hype you up, and make you smile.</p>
+
+    <div class="heart-line">
+      <span></span>
+      <div class="heart" id="heartIcon">❤️</div>
+      <span></span>
+    </div>
+
+    <div class="message-box">
+      <span id="msg"></span><span class="cursor" id="cursor"></span>
+    </div>
+
+    <div class="meta-row">
+      <p class="hint">
+        Tap <strong>More Love</strong> for a new line. Soft Mode = gentle, Personal Mode = extra “you”, Shuffle = chaos.
+      </p>
+      <p class="progress" id="progressText">0 / 0</p>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="mode-row">
+      <div class="mode-pill">
+        Soft mode: <strong><span id="modeLabel">ON</span></strong>
+      </div>
+      <div class="mode-pill">
+        Personal mode: <strong><span id="personalLabel">OFF</span></strong>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="primary-btn" id="moreBtn" onclick="nextLine()">
+        <span class="icon">✨</span>
+        <span>More Love</span>
+      </button>
+      <button class="secondary-btn" onclick="toggleMode()">
+        Soft Mode
+      </button>
+      <button class="secondary-btn alt" onclick="togglePersonalMode()">
+        💖 Only For You
+      </button>
+      <button class="secondary-btn alt" onclick="shuffleLines()">
+        Shuffle ❤️
+      </button>
+      <button class="secondary-btn alt" id="musicBtn" onclick="toggleMusic()">
+        🎶 Play / Pause
+      </button>
+    </div>
+
+    <p class="final-message" id="finalMsg">
+      You officially reached the end, but I still haven’t run out of ways to adore you. Just saying.
+    </p>
+
+    <p class="footer-note">
+      P.S. No matter how many times you tap, one thing won’t change: I’m <span>very obsessed</span> with you. 🌙
+    </p>
+  </div>
+
+  <!-- Background music (put song.mp3 in same folder) -->
+  <audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    // Flirty / playful lines
+    const flirtyLines = [
+      "You’re dangerously cute. I should come with a warning label: will fall for you. 😏",
+      "Stop stealing my heart. I’m trying to act cool here and you’re not helping. 😌",
+      "I tried to think of a smooth pick‑up line, but all I could think about was you.",
+      "Every time my phone lights up, I secretly hope it’s you. 📲❤️",
+      "I don’t believe in perfect people, but then you showed up and ruined my theory.",
+      "If being adorable was a crime, you’d definitely be serving a life sentence. 👀",
+      "I was doing just fine… and then you smiled and now I’m obsessed.",
+      "Pretty sure my heart skipped a beat when I first saw you. It still hasn’t recovered.",
+      "I don’t need caffeine, I just need one text from you and I’m wide awake.",
+      "You’re my favorite notification, favorite thought, and favorite everything."
+    ];
+
+    // Soft / wholesome lines
+    const softLines = [
+      "You make everything feel a little lighter just by being here. 🌙",
+      "I hope you know how genuinely special you are, not just to me, but to the world.",
+      "Your smile could turn the worst day into a bearable one. It’s kind of magical.",
+      "You deserve soft hugs, calm nights, and people who never make you doubt your worth.",
+      "You’re not just beautiful on the outside, your heart is honestly my favorite part.",
+      "You make ordinary moments feel like my favorite memories.",
+      "I’m really proud of you, even for the little things you don’t give yourself credit for.",
+      "You don’t have to do anything to impress me. You’re already more than enough.",
+      "The world feels a lot safer and warmer with you in it.",
+      "I hope you see yourself one day the way I see you: absolutely precious."
+    ];
+
+    // Personal lines – put her name here if you want
+    const personalLines = [
+      "Out of everyone on this planet, my brain chose to obsess over you. I think it has great taste.",
+      "If I could bottle the feeling I get when you text me, I’d never need anything else.",
+      "You’re the plot twist in my life that made everything way more interesting.",
+      "You don’t just look good, you feel like home. That’s my favorite part.",
+      "Lowkey, I could talk to you all day and still not be bored. That’s rare."
+    ];
+
+    let softMode = true;
+    let personalMode = false;
+    let currentIndex = 0;
+    let currentArray = [];
+    let typingTimeout;
+    let isTyping = false;
+    let shownCount = 0;
+    let hasCompletedSet = false;
+
+    const msgEl = document.getElementById("msg");
+    const modeLabelEl = document.getElementById("modeLabel");
+    const personalLabelEl = document.getElementById("personalLabel");
+    const progressTextEl = document.getElementById("progressText");
+    const progressBarEl = document.getElementById("progressBar");
+    const moreBtn = document.getElementById("moreBtn");
+    const bgMusic = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
+    const heartIcon = document.getElementById("heartIcon");
+    const finalMsgEl = document.getElementById("finalMsg");
+    let musicPlaying = false;
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function getBaseArray() {
+      if (personalMode) {
+        return personalLines;
+      }
+      return softMode ? softLines : flirtyLines;
+    }
+
+    function buildCurrentArray() {
+      const base = getBaseArray();
+      // Mix with a bit of everything when not in pure personal mode
+      if (!personalMode) {
+        currentArray = shuffleArray([...base, ...personalLines]);
+      } else {
+        currentArray = shuffleArray([...base]);
+      }
+      currentIndex = 0;
+      shownCount = 0;
+      hasCompletedSet = false;
+      updateProgress();
+      updateFinalMessage();
+    }
+
+    function updateProgress() {
+      const total = currentArray.length || 1;
+      progressTextEl.textContent = `${shownCount} / ${total}`;
+      const width = (shownCount / total) * 100;
+      progressBarEl.style.width = `${width}%`;
+      if (shownCount >= total) {
+        hasCompletedSet = true;
+        updateFinalMessage();
+      }
+    }
+
+    function updateFinalMessage() {
+      if (hasCompletedSet) {
+        finalMsgEl.classList.add("visible");
+      } else {
+        finalMsgEl.classList.remove("visible");
+      }
+    }
+
+    function typeText(text, index = 0) {
+      isTyping = true;
+      moreBtn.disabled = true;
+      msgEl.classList.remove("visible");
+      msgEl.textContent = text.slice(0, index);
+
+      if (index < text.length) {
+        typingTimeout = setTimeout(() => typeText(text, index + 1), 26);
+      } else {
+        isTyping = false;
+        moreBtn.disabled = false;
+        requestAnimationFrame(() => msgEl.classList.add("visible"));
+      }
+    }
+
+    function bumpHeart() {
+      heartIcon.classList.remove("bounce");
+      void heartIcon.offsetWidth; // restart animation
+      heartIcon.classList.add("bounce");
+    }
+
+    function nextLine() {
+      if (isTyping || currentArray.length === 0) return;
+
+      const text = currentArray[currentIndex];
+      currentIndex = (currentIndex + 1) % currentArray.length;
+
+      shownCount = Math.min(shownCount + 1, currentArray.length);
+      updateProgress();
+      bumpHeart();
+
+      clearTimeout(typingTimeout);
+      typeText(text);
+    }
+
+    function toggleMode() {
+      if (isTyping) return;
+
+      softMode = !softMode;
+      modeLabelEl.textContent = softMode ? "ON" : "OFF";
+      buildCurrentArray();
+
+      if (currentArray.length > 0) {
+        clearTimeout(typingTimeout);
+        const text = currentArray[currentIndex];
+        currentIndex = (currentIndex + 1) % currentArray.length;
+        shownCount = 1;
+        updateProgress();
+        typeText(text);
+        bumpHeart();
+      }
+    }
+
+    function togglePersonalMode() {
+      if (isTyping) return;
+
+      personalMode = !personalMode;
+      personalLabelEl.textContent = personalMode ? "ON" : "OFF";
+      buildCurrentArray();
+
+      if (currentArray.length > 0) {
+        clearTimeout(typingTimeout);
+        const text = currentArray[currentIndex];
+        currentIndex = (currentIndex + 1) % currentArray.length;
+        shownCount = 1;
+        updateProgress();
+        typeText(text);
+        bumpHeart();
+      }
+    }
+
+    function shuffleLines() {
+      if (isTyping) return;
+
+      buildCurrentArray();
+      if (currentArray.length > 0) {
+        clearTimeout(typingTimeout);
+        const text = currentArray[currentIndex];
+        currentIndex = (currentIndex + 1) % currentArray.length;
+        shownCount = 1;
+        updateProgress();
+        typeText(text);
+        bumpHeart();
+      }
+    }
+
+    function toggleMusic() {
+      if (!bgMusic) return;
+
+      if (!musicPlaying) {
+        bgMusic.play().then(() => {
+          musicPlaying = true;
+          musicBtn.classList.add("music-on");
+        }).catch(() => {
+          alert("If the music didn’t start, tap again or check your sound 🙂");
+        });
+      } else {
+        bgMusic.pause();
+        musicPlaying = false;
+        musicBtn.classList.remove("music-on");
+      }
+    }
+
+    // Initial message on load
+    window.addEventListener("load", () => {
+      buildCurrentArray();
+      const intro = "I made this tiny corner of the internet just for you, because you deserve cute, emotional and slightly chaotic love energy. 💖";
+      typeText(intro);
+    });
+  </script>
+</body>
+</html>
