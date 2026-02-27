@@ -5,15 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>For You 💖</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg1: #ff9a9e;
@@ -22,15 +17,14 @@
       --accent: #ff4d6d;
       --accent-soft: #ff89a3;
       --accent-dark: #d63b56;
-      --card-bg: rgba(255, 255, 255, 0.14);
-      --card-border: rgba(255, 255, 255, 0.4);
-      --shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
+      --card-border: rgba(255,255,255,0.4);
+      --shadow: 0 24px 50px rgba(0,0,0,0.3);
     }
 
     body {
-      height: 100vh;
+      min-height: 100vh;
       font-family: "Poppins", Arial, sans-serif;
-      color: #ffffff;
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -38,166 +32,180 @@
         radial-gradient(circle at top left, #ffd1ff 0, transparent 52%),
         radial-gradient(circle at bottom right, #ffe8d6 0, transparent 55%),
         linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
-      overflow: hidden;
-      padding: 10px;
+      overflow-x: hidden;
+      padding: 16px 10px;
     }
 
-    /* Floating bubbles */
+    /* ── Floating bubbles ── */
     .bubble {
-      position: absolute;
+      position: fixed;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.13);
+      background: rgba(255,255,255,0.13);
       animation: float 16s infinite ease-in-out;
       pointer-events: none;
       filter: blur(1px);
     }
-
-    .bubble:nth-child(1) {
-      width: 180px;
-      height: 180px;
-      top: 2%;
-      left: 8%;
-      animation-duration: 18s;
-    }
-    .bubble:nth-child(2) {
-      width: 120px;
-      height: 120px;
-      bottom: 12%;
-      right: 10%;
-      animation-duration: 14s;
-    }
-    .bubble:nth-child(3) {
-      width: 220px;
-      height: 220px;
-      bottom: -6%;
-      left: 24%;
-      animation-duration: 21s;
-    }
+    .bubble:nth-child(1) { width:180px; height:180px; top:2%; left:8%; animation-duration:18s; }
+    .bubble:nth-child(2) { width:120px; height:120px; bottom:12%; right:10%; animation-duration:14s; }
+    .bubble:nth-child(3) { width:220px; height:220px; bottom:-6%; left:24%; animation-duration:21s; }
+    .bubble:nth-child(4) { width:80px; height:80px; top:30%; right:5%; animation-duration:11s; }
 
     @keyframes float {
-      0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.8; }
-      50%  { transform: translateY(-40px) translateX(18px) scale(1.06); opacity: 1; }
-      100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.7; }
+      0%   { transform: translateY(0) translateX(0) scale(1); opacity:.8; }
+      50%  { transform: translateY(-40px) translateX(18px) scale(1.06); opacity:1; }
+      100% { transform: translateY(0) translateX(0) scale(1); opacity:.7; }
     }
 
+    /* ── Floating hearts rain ── */
+    .hearts-rain { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+    .rain-heart {
+      position: absolute;
+      top: -40px;
+      font-size: 1.2rem;
+      animation: rainFall linear infinite;
+      opacity: 0;
+    }
+    @keyframes rainFall {
+      0%   { transform: translateY(0) rotate(0deg); opacity:0; }
+      10%  { opacity: 0.7; }
+      90%  { opacity: 0.5; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity:0; }
+    }
+
+    /* ── Main card ── */
     .container {
       position: relative;
       z-index: 1;
-      width: min(430px, 92vw);
-      padding: 26px 22px 26px;
-      border-radius: 26px;
+      width: min(450px, 94vw);
+      padding: 28px 24px 26px;
+      border-radius: 28px;
       border: 1px solid var(--card-border);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.06));
+      background: linear-gradient(135deg, rgba(255,255,255,0.26), rgba(255,255,255,0.06));
       box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(20px);
       text-align: center;
-      animation: cardIn 0.6s ease-out;
+      animation: cardIn 0.7s cubic-bezier(0.34,1.56,0.64,1);
     }
 
     @keyframes cardIn {
-      0% { transform: translateY(20px) scale(0.96); opacity: 0; }
-      100% { transform: translateY(0) scale(1); opacity: 1; }
+      0%   { transform: translateY(30px) scale(0.94); opacity:0; }
+      100% { transform: translateY(0) scale(1); opacity:1; }
     }
 
+    /* ── Tag ── */
     .tag {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      padding: 6px 12px;
+      padding: 5px 13px;
       border-radius: 999px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0,0,0,0.25);
       margin-bottom: 10px;
     }
-
-    .tag-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #00ff9d;
-      box-shadow: 0 0 9px #00ff9d;
-    }
-
-    .tag span {
-      opacity: 0.9;
-    }
+    .tag-dot { width:7px; height:7px; border-radius:50%; background:#00ff9d; box-shadow:0 0 9px #00ff9d; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{ box-shadow:0 0 9px #00ff9d; } 50%{ box-shadow:0 0 18px #00ff9d; } }
 
     h1 {
-      font-size: 2rem;
-      margin-bottom: 6px;
       font-family: "Pacifico", cursive;
-      letter-spacing: 0.04em;
+      font-size: 2.1rem;
+      margin-bottom: 5px;
+      text-shadow: 0 2px 16px rgba(255,77,109,0.4);
+      animation: shimmer 3s infinite alternate;
+    }
+    @keyframes shimmer {
+      from { text-shadow: 0 2px 16px rgba(255,77,109,0.4); }
+      to   { text-shadow: 0 2px 28px rgba(255,255,255,0.6); }
     }
 
     .subtitle {
-      font-size: 0.95rem;
-      opacity: 0.95;
-      margin-bottom: 18px;
+      font-size: 0.92rem;
+      opacity: 0.93;
+      margin-bottom: 16px;
+      line-height: 1.5;
     }
 
+    /* ── Heart divider ── */
     .heart-line {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       opacity: 0.9;
-      font-size: 0.88rem;
     }
-
-    .heart-line span {
-      display: inline-block;
-      width: 40px;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.45);
-    }
-
-    .heart {
-      font-size: 1.2rem;
-      animation: beat 0.9s infinite;
-    }
-
+    .heart-line span { display:inline-block; width:40px; height:1px; background:rgba(255,255,255,0.45); }
+    .heart { font-size:1.3rem; animation: beat 0.9s infinite; cursor:pointer; }
     @keyframes beat {
-      0%, 100% { transform: scale(1); }
-      30%      { transform: scale(1.25); }
-      60%      { transform: scale(0.9); }
+      0%,100% { transform:scale(1); }
+      30%     { transform:scale(1.3); }
+      60%     { transform:scale(0.88); }
     }
-
     .heart.bounce {
       animation: bounceHeart 0.5s ease;
     }
-
     @keyframes bounceHeart {
-      0% { transform: scale(1); }
-      30% { transform: scale(1.3) translateY(-2px); }
-      60% { transform: scale(0.9) translateY(1px); }
-      100% { transform: scale(1); }
+      0%   { transform:scale(1); }
+      30%  { transform:scale(1.4) translateY(-4px); }
+      60%  { transform:scale(0.88) translateY(2px); }
+      100% { transform:scale(1); }
     }
 
+    /* ── Mood selector ── */
+    .mood-bar {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .mood-btn {
+      padding: 5px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.4);
+      background: rgba(0,0,0,0.18);
+      color: #fff;
+      font-size: 0.8rem;
+      font-family: "Poppins", sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mood-btn.active {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.8);
+      font-weight: 600;
+      box-shadow: 0 0 12px rgba(255,255,255,0.3);
+    }
+    .mood-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.15); }
+
+    /* ── Message box ── */
     .message-box {
-      min-height: 80px;
-      padding: 14px 15px 16px;
+      min-height: 90px;
+      padding: 16px 16px 18px;
       border-radius: 18px;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.3);
       font-size: 1.02rem;
-      line-height: 1.6;
+      line-height: 1.65;
       margin-bottom: 8px;
       position: relative;
-      overflow: hidden;
       text-align: left;
+      overflow: hidden;
+      transition: border-color 0.3s;
     }
+    .message-box:hover { border-color: rgba(255,255,255,0.5); }
 
-    .message-box::before {
-      content: "💌";
+    .msg-icon {
       position: absolute;
       top: 10px;
       right: 12px;
-      opacity: 0.7;
       font-size: 1.1rem;
+      opacity: 0.7;
+      transition: transform 0.3s;
     }
+    .message-box:hover .msg-icon { transform: rotate(10deg) scale(1.1); }
 
     #msg {
       display: inline-block;
@@ -206,11 +214,7 @@
       transform: translateY(4px);
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
-
-    #msg.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    #msg.visible { opacity:1; transform:translateY(0); }
 
     .cursor {
       display: inline-block;
@@ -219,76 +223,85 @@
       margin-left: 1px;
       animation: blink 0.7s steps(1) infinite;
     }
-
     @keyframes blink {
-      0%, 49%   { background: rgba(255, 255, 255, 0.85); }
-      50%, 100% { background: transparent; }
+      0%,49%   { background: rgba(255,255,255,0.85); }
+      50%,100% { background: transparent; }
     }
 
+    /* ── Like button ── */
+    .like-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+      opacity: 0.85;
+    }
+    .like-btn {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 999px;
+      color: #fff;
+      font-size: 0.8rem;
+      padding: 3px 10px;
+      cursor: pointer;
+      font-family: "Poppins", sans-serif;
+      transition: all 0.2s;
+    }
+    .like-btn:hover { background: rgba(255,77,109,0.35); border-color:#ff4d6d; }
+    .like-btn.liked { background: rgba(255,77,109,0.4); border-color:#ff4d6d; }
+
+    /* ── Meta + progress ── */
     .meta-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       opacity: 0.82;
-      margin-bottom: 10px;
-      gap: 6px;
-      flex-wrap: wrap;
+      margin-bottom: 8px;
     }
-
-    .hint {
-      text-align: left;
-    }
-
-    .progress {
-      text-align: right;
-      white-space: nowrap;
-    }
-
     .progress-bar-wrap {
       width: 100%;
       height: 4px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.22);
+      background: rgba(255,255,255,0.2);
       overflow: hidden;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
-
     .progress-bar {
       height: 100%;
       width: 0%;
       border-radius: inherit;
       background: linear-gradient(90deg, var(--accent-soft), #fff);
-      transition: width 0.25s ease-out;
+      transition: width 0.3s ease-out;
     }
 
+    /* ── Mode pills ── */
     .mode-row {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      font-size: 0.78rem;
+      gap: 8px;
+      font-size: 0.76rem;
       opacity: 0.85;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       flex-wrap: wrap;
     }
-
     .mode-pill {
       padding: 3px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      background: rgba(0, 0, 0, 0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      background: rgba(0,0,0,0.18);
     }
+    .mode-pill strong { color: #ffe1ec; }
 
-    .mode-pill strong {
-      color: #ffe1ec;
-    }
-
+    /* ── Buttons ── */
     .buttons {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     button {
@@ -296,115 +309,125 @@
       border-radius: 999px;
       cursor: pointer;
       font-family: inherit;
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       padding: 10px 18px;
-      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease, box-shadow 0.18s ease;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
       touch-action: manipulation;
     }
 
     .primary-btn {
-      background: #ffffff;
+      background: #fff;
       color: var(--accent);
       font-weight: 600;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.2);
       display: inline-flex;
       align-items: center;
       gap: 7px;
     }
-
-    .primary-btn span.icon {
-      font-size: 1.15rem;
-    }
-
     .secondary-btn {
       background: transparent;
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.55);
-      font-weight: 400;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.55);
     }
-
     .secondary-btn.alt {
       border-style: dashed;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       padding-inline: 14px;
     }
-
     .music-on {
-      box-shadow: 0 0 12px rgba(255, 239, 255, 0.9);
+      box-shadow: 0 0 14px rgba(255,239,255,0.9);
       border-color: #ffe1f4;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255,255,255,0.15);
     }
+    button:hover  { transform: translateY(-2px) scale(1.03); box-shadow: 0 14px 26px rgba(0,0,0,0.22); }
+    button:active { transform: translateY(1px) scale(0.97); }
+    button:disabled { opacity:0.55; transform:none; box-shadow:none; cursor:default; }
 
-    button:hover {
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
-    }
-
-    button:active {
-      transform: translateY(1px) scale(0.98);
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      transform: none;
-      box-shadow: none;
-      cursor: default;
-    }
-
-    .footer-note {
-      font-size: 0.78rem;
-      opacity: 0.8;
+    /* ── Streak + stats ── */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
       margin-top: 14px;
-      text-align: center;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
     }
-
-    .footer-note span {
-      opacity: 0.95;
-      font-weight: 500;
+    .stat-chip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 14px;
+      padding: 7px 16px;
+      font-size: 0.76rem;
+      opacity: 0.9;
     }
+    .stat-chip strong { font-size: 1.2rem; font-weight:600; color:#ffe1ec; }
 
+    /* ── Final message ── */
     .final-message {
       margin-top: 10px;
       font-size: 0.8rem;
       opacity: 0;
       transform: translateY(6px);
-      transition: opacity 0.25s ease, transform 0.25s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      font-family: "Dancing Script", cursive;
+      font-size: 1rem;
+    }
+    .final-message.visible { opacity:0.9; transform:translateY(0); }
+
+    /* ── Secret note ── */
+    .secret-note {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.12);
+      border: 1px dashed rgba(255,255,255,0.5);
+      font-size: 0.86rem;
+      font-family: "Dancing Script", cursive;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      animation: fadeSlide 0.4s ease;
+      text-align: left;
+    }
+    .secret-note.visible { display:block; }
+    @keyframes fadeSlide {
+      from { opacity:0; transform:translateY(8px); }
+      to   { opacity:1; transform:translateY(0); }
     }
 
-    .final-message.visible {
-      opacity: 0.9;
-      transform: translateY(0);
+    .footer-note {
+      font-size: 0.76rem;
+      opacity: 0.78;
+      margin-top: 14px;
+      text-align: center;
     }
+    .footer-note span { opacity:0.95; font-weight:500; }
 
     @media (max-width: 480px) {
-      .container {
-        padding: 22px 18px 22px;
-        border-radius: 22px;
-      }
-      h1 {
-        font-size: 1.8rem;
-      }
-      .subtitle {
-        font-size: 0.9rem;
-      }
-      .message-box {
-        font-size: 0.96rem;
-      }
-      .meta-row {
-        font-size: 0.74rem;
-      }
+      .container { padding:22px 16px 22px; border-radius:22px; }
+      h1 { font-size:1.8rem; }
+      .subtitle { font-size:0.88rem; }
+      .message-box { font-size:0.95rem; }
+      button { font-size:0.88rem; padding:9px 14px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Decorative bubbles -->
+  <!-- Bubbles -->
+  <div class="bubble"></div>
   <div class="bubble"></div>
   <div class="bubble"></div>
   <div class="bubble"></div>
 
+  <!-- Hearts rain -->
+  <div class="hearts-rain" id="heartsRain"></div>
+
   <div class="container">
+
     <div class="tag">
       <div class="tag-dot"></div>
       <span>for my Babyyyy</span>
@@ -415,19 +438,32 @@
 
     <div class="heart-line">
       <span></span>
-      <div class="heart" id="heartIcon">❤️</div>
+      <div class="heart" id="heartIcon" onclick="bumpHeart()">❤️</div>
       <span></span>
+    </div>
+
+    <!-- Mood selector -->
+    <div class="mood-bar">
+      <button class="mood-btn active" onclick="setMood('flirty')" id="mood-flirty">😏 Flirty</button>
+      <button class="mood-btn" onclick="setMood('soft')" id="mood-soft">🌙 Soft</button>
+      <button class="mood-btn" onclick="setMood('personal')" id="mood-personal">💖 Personal</button>
+      <button class="mood-btn" onclick="setMood('hype')" id="mood-hype">🔥 Hype</button>
     </div>
 
     <div class="message-box">
       <span id="msg"></span><span class="cursor" id="cursor"></span>
+      <span class="msg-icon" id="msgIcon">💌</span>
+    </div>
+
+    <!-- Like row -->
+    <div class="like-row">
+      <span id="likeCount">0 loves</span>
+      <button class="like-btn" id="likeBtn" onclick="likeMessage()">🩷 Love this</button>
     </div>
 
     <div class="meta-row">
-      <p class="hint">
-        Tap <strong>More Love</strong> for a new line. Soft Mode = gentle, Personal Mode = extra “you”, Shuffle = chaos.
-      </p>
-      <p class="progress" id="progressText">0 / 0</p>
+      <p style="text-align:left; max-width:66%;">Pick a mood above, tap <strong>Next ✨</strong> for more.</p>
+      <p id="progressText" style="white-space:nowrap;">0 / 0</p>
     </div>
 
     <div class="progress-bar-wrap">
@@ -435,263 +471,321 @@
     </div>
 
     <div class="mode-row">
-      <div class="mode-pill">
-        Soft mode: <strong><span id="modeLabel">ON</span></strong>
-      </div>
-      <div class="mode-pill">
-        Personal mode: <strong><span id="personalLabel">OFF</span></strong>
-      </div>
+      <div class="mode-pill">Mood: <strong><span id="modeLabel">Flirty</span></strong></div>
+      <div class="mode-pill">Loved: <strong><span id="lovedCount">0</span></strong></div>
     </div>
 
     <div class="buttons">
       <button class="primary-btn" id="moreBtn" onclick="nextLine()">
-        <span class="icon">✨</span>
-        <span>More Love</span>
+        <span>✨</span><span>Next</span>
       </button>
-      <button class="secondary-btn" onclick="toggleMode()">
-        Soft Mode
-      </button>
-      <button class="secondary-btn alt" onclick="togglePersonalMode()">
-        💖 Only For You
-      </button>
-      <button class="secondary-btn alt" onclick="shuffleLines()">
-        Shuffle ❤️
-      </button>
-      <button class="secondary-btn alt" id="musicBtn" onclick="toggleMusic()">
-        🎶 Play / Pause
-      </button>
+      <button class="secondary-btn alt" onclick="shuffleLines()">Shuffle ❤️</button>
+      <button class="secondary-btn alt" id="secretBtn" onclick="toggleSecret()">🤫 Secret Note</button>
+      <button class="secondary-btn alt" id="musicBtn" onclick="toggleMusic()">🎶 Music</button>
+    </div>
+
+    <!-- Secret note -->
+    <div class="secret-note" id="secretNote">
+      "In a world full of noise, you're my favourite sound. I don't need a perfect moment — any moment with you already is. I'm so glad I get to like you this much. 🌙"
     </div>
 
     <p class="final-message" id="finalMsg">
-      You officially reached the end, but I still haven’t run out of ways to adore you. Just saying.
+      You reached the end, but I still haven't run out of ways to adore you. Just saying. 💫
     </p>
 
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-chip">
+        <strong id="statSeen">0</strong>
+        <span>lines seen</span>
+      </div>
+      <div class="stat-chip">
+        <strong id="statLoved">0</strong>
+        <span>loved</span>
+      </div>
+      <div class="stat-chip">
+        <strong id="statTaps">0</strong>
+        <span>total taps</span>
+      </div>
+    </div>
+
     <p class="footer-note">
-      P.S. No matter how many times you tap, one thing won’t change: I’m <span>very obsessed</span> with you. 🌙
+      P.S. No matter how many times you tap, one thing won't change: I'm <span>very obsessed</span> with you. 🌙
     </p>
   </div>
 
-  <!-- Background music (put song.mp3 in same folder) -->
   <audio id="bgMusic" loop>
     <source src="song.mp3" type="audio/mpeg" />
   </audio>
 
   <script>
-    // Flirty / playful lines
-    const flirtyLines = [
-      "You’re dangerously cute. I should come with a warning label: will fall for you. 😏",
-      "Stop stealing my heart. I’m trying to act cool here and you’re not helping. 😌",
-      "I tried to think of a smooth pick‑up line, but all I could think about was you.",
-      "Every time my phone lights up, I secretly hope it’s you. 📲❤️",
-      "I don’t believe in perfect people, but then you showed up and ruined my theory.",
-      "If being adorable was a crime, you’d definitely be serving a life sentence. 👀",
-      "I was doing just fine… and then you smiled and now I’m obsessed.",
-      "Pretty sure my heart skipped a beat when I first saw you. It still hasn’t recovered.",
-      "I don’t need caffeine, I just need one text from you and I’m wide awake.",
-      "You’re my favorite notification, favorite thought, and favorite everything."
-    ];
+    // ── Lines ──────────────────────────────────────────────────────────
+    const allLines = {
+      flirty: [
+        "You're dangerously cute. I should come with a warning label: will fall for you. 😏",
+        "Stop stealing my heart. I'm trying to act cool here and you're not helping. 😌",
+        "I tried to think of a smooth line, but all I could think about was you.",
+        "Every time my phone lights up, I secretly hope it's you. 📲❤️",
+        "I don't believe in perfect people, but then you showed up and ruined my theory.",
+        "If being adorable was a crime, you'd definitely be serving a life sentence. 👀",
+        "I was doing just fine… and then you smiled and now I'm obsessed.",
+        "Pretty sure my heart skipped a beat when I first saw you. It still hasn't recovered.",
+        "I don't need caffeine, I just need one text from you and I'm wide awake.",
+        "You're my favorite notification, favorite thought, and favorite everything.",
+        "The way you exist is honestly so unfair to the rest of us. 😭",
+        "I keep replaying conversations with you in my head like a playlist on repeat."
+      ],
+      soft: [
+        "You make everything feel a little lighter just by being here. 🌙",
+        "I hope you know how genuinely special you are, not just to me, but to the world.",
+        "Your smile could turn the worst day into a bearable one. It's kind of magical.",
+        "You deserve soft hugs, calm nights, and people who never make you doubt your worth.",
+        "You're not just beautiful on the outside — your heart is honestly my favorite part.",
+        "You make ordinary moments feel like my favorite memories.",
+        "I'm really proud of you, even for the little things you don't give yourself credit for.",
+        "You don't have to do anything to impress me. You're already more than enough.",
+        "The world feels a lot safer and warmer with you in it.",
+        "I hope you see yourself one day the way I see you: absolutely precious.",
+        "You carry so much grace and you don't even realize it.",
+        "Being around you feels like the first warm day after a really long winter. 🌸"
+      ],
+      personal: [
+        "Out of everyone on this planet, my brain chose to obsess over you. Great taste, honestly.",
+        "If I could bottle the feeling I get when you text me, I'd never need anything else.",
+        "You're the plot twist in my life that made everything way more interesting.",
+        "You don't just look good — you feel like home. That's my favorite part.",
+        "Lowkey I could talk to you all day and still not be bored. That's so rare.",
+        "I made this whole page because I thought about you and had to do something with that energy.",
+        "You live in my head rent-free and honestly? I'm not even mad about it.",
+        "Every time I think I've figured out how much I like you, you do something and raise the bar.",
+        "You're the reason I've been smiling at my phone for no reason lately. 😅"
+      ],
+      hype: [
+        "You are THAT girl. The main character. The plot. The whole story. Own it. 👑",
+        "The confidence you deserve? Massive. You are literally built different.",
+        "Hot, funny, smart, and kind? You're cheating at being a person. 😭🔥",
+        "Nobody in this room has more rizz than you and that's a fact.",
+        "The way you move through life like you know exactly who you are? Stunning.",
+        "You radiate energy that makes people want to be around you. That's a superpower.",
+        "Every version of you — good days, bad days, tired days — is genuinely amazing.",
+        "You are not 'almost there'. You are ALREADY it. Start acting like it. 💅",
+        "I genuinely think you could walk into any room and own it. Without trying."
+      ]
+    };
 
-    // Soft / wholesome lines
-    const softLines = [
-      "You make everything feel a little lighter just by being here. 🌙",
-      "I hope you know how genuinely special you are, not just to me, but to the world.",
-      "Your smile could turn the worst day into a bearable one. It’s kind of magical.",
-      "You deserve soft hugs, calm nights, and people who never make you doubt your worth.",
-      "You’re not just beautiful on the outside, your heart is honestly my favorite part.",
-      "You make ordinary moments feel like my favorite memories.",
-      "I’m really proud of you, even for the little things you don’t give yourself credit for.",
-      "You don’t have to do anything to impress me. You’re already more than enough.",
-      "The world feels a lot safer and warmer with you in it.",
-      "I hope you see yourself one day the way I see you: absolutely precious."
-    ];
+    const moodIcons = { flirty:'😏💌', soft:'🌙✨', personal:'💖🤍', hype:'🔥👑' };
+    const moodNames = { flirty:'Flirty', soft:'Soft', personal:'Personal', hype:'Hype' };
 
-    // Personal lines – put her name here if you want
-    const personalLines = [
-      "Out of everyone on this planet, my brain chose to obsess over you. I think it has great taste.",
-      "If I could bottle the feeling I get when you text me, I’d never need anything else.",
-      "You’re the plot twist in my life that made everything way more interesting.",
-      "You don’t just look good, you feel like home. That’s my favorite part.",
-      "Lowkey, I could talk to you all day and still not be bored. That’s rare."
-    ];
-
-    let softMode = true;
-    let personalMode = false;
-    let currentIndex = 0;
+    let currentMood = 'flirty';
     let currentArray = [];
+    let currentIndex = 0;
+    let shownCount = 0;
+    let totalTaps = 0;
+    let lovedTotal = 0;
+    let likedMessages = new Set();
+    let currentMsgIndex = -1;
     let typingTimeout;
     let isTyping = false;
-    let shownCount = 0;
     let hasCompletedSet = false;
-
-    const msgEl = document.getElementById("msg");
-    const modeLabelEl = document.getElementById("modeLabel");
-    const personalLabelEl = document.getElementById("personalLabel");
-    const progressTextEl = document.getElementById("progressText");
-    const progressBarEl = document.getElementById("progressBar");
-    const moreBtn = document.getElementById("moreBtn");
-    const bgMusic = document.getElementById("bgMusic");
-    const musicBtn = document.getElementById("musicBtn");
-    const heartIcon = document.getElementById("heartIcon");
-    const finalMsgEl = document.getElementById("finalMsg");
     let musicPlaying = false;
+    let secretVisible = false;
 
-    function shuffleArray(arr) {
-      const copy = [...arr];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
+    const msgEl        = document.getElementById("msg");
+    const modeLabelEl  = document.getElementById("modeLabel");
+    const progressTextEl = document.getElementById("progressText");
+    const progressBarEl  = document.getElementById("progressBar");
+    const moreBtn      = document.getElementById("moreBtn");
+    const bgMusic      = document.getElementById("bgMusic");
+    const musicBtn     = document.getElementById("musicBtn");
+    const heartIcon    = document.getElementById("heartIcon");
+    const finalMsgEl   = document.getElementById("finalMsg");
+    const msgIcon      = document.getElementById("msgIcon");
+    const likeBtn      = document.getElementById("likeBtn");
+    const likeCountEl  = document.getElementById("likeCount");
+    const lovedCountEl = document.getElementById("lovedCount");
+    const statSeenEl   = document.getElementById("statSeen");
+    const statLovedEl  = document.getElementById("statLoved");
+    const statTapsEl   = document.getElementById("statTaps");
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length-1; i>0; i--) {
+        const j = Math.floor(Math.random()*(i+1));
+        [c[i],c[j]]=[c[j],c[i]];
       }
-      return copy;
+      return c;
     }
 
-    function getBaseArray() {
-      if (personalMode) {
-        return personalLines;
-      }
-      return softMode ? softLines : flirtyLines;
+    function setMood(mood) {
+      if (isTyping) return;
+      currentMood = mood;
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('mood-'+mood).classList.add('active');
+      modeLabelEl.textContent = moodNames[mood];
+      msgIcon.textContent = moodIcons[mood][0];
+      buildArray();
+      showFirst();
     }
 
-    function buildCurrentArray() {
-      const base = getBaseArray();
-      // Mix with a bit of everything when not in pure personal mode
-      if (!personalMode) {
-        currentArray = shuffleArray([...base, ...personalLines]);
-      } else {
-        currentArray = shuffleArray([...base]);
-      }
+    function buildArray() {
+      currentArray = shuffle(allLines[currentMood]);
       currentIndex = 0;
       shownCount = 0;
       hasCompletedSet = false;
+      likedMessages.clear();
+      likeBtn.classList.remove('liked');
       updateProgress();
-      updateFinalMessage();
+      finalMsgEl.classList.remove('visible');
     }
 
     function updateProgress() {
       const total = currentArray.length || 1;
       progressTextEl.textContent = `${shownCount} / ${total}`;
-      const width = (shownCount / total) * 100;
-      progressBarEl.style.width = `${width}%`;
+      progressBarEl.style.width = `${(shownCount/total)*100}%`;
       if (shownCount >= total) {
         hasCompletedSet = true;
-        updateFinalMessage();
+        finalMsgEl.classList.add('visible');
       }
     }
 
-    function updateFinalMessage() {
-      if (hasCompletedSet) {
-        finalMsgEl.classList.add("visible");
-      } else {
-        finalMsgEl.classList.remove("visible");
-      }
+    function updateStats() {
+      statSeenEl.textContent = shownCount;
+      statLovedEl.textContent = lovedTotal;
+      statTapsEl.textContent = totalTaps;
     }
 
-    function typeText(text, index = 0) {
+    function typeText(text, index=0) {
       isTyping = true;
       moreBtn.disabled = true;
-      msgEl.classList.remove("visible");
+      msgEl.classList.remove('visible');
       msgEl.textContent = text.slice(0, index);
-
       if (index < text.length) {
-        typingTimeout = setTimeout(() => typeText(text, index + 1), 26);
+        typingTimeout = setTimeout(() => typeText(text, index+1), 24);
       } else {
         isTyping = false;
         moreBtn.disabled = false;
-        requestAnimationFrame(() => msgEl.classList.add("visible"));
+        requestAnimationFrame(() => msgEl.classList.add('visible'));
       }
     }
 
     function bumpHeart() {
-      heartIcon.classList.remove("bounce");
-      void heartIcon.offsetWidth; // restart animation
-      heartIcon.classList.add("bounce");
+      heartIcon.classList.remove('bounce');
+      void heartIcon.offsetWidth;
+      heartIcon.classList.add('bounce');
+      spawnHeartPop();
     }
 
-    function nextLine() {
-      if (isTyping || currentArray.length === 0) return;
-
-      const text = currentArray[currentIndex];
-      currentIndex = (currentIndex + 1) % currentArray.length;
-
-      shownCount = Math.min(shownCount + 1, currentArray.length);
-      updateProgress();
-      bumpHeart();
-
+    function showFirst() {
+      if (!currentArray.length) return;
       clearTimeout(typingTimeout);
+      currentMsgIndex = 0;
+      const text = currentArray[currentMsgIndex];
+      currentIndex = 1;
+      shownCount = 1;
+      updateProgress();
+      updateStats();
+      bumpHeart();
       typeText(text);
     }
 
-    function toggleMode() {
-      if (isTyping) return;
-
-      softMode = !softMode;
-      modeLabelEl.textContent = softMode ? "ON" : "OFF";
-      buildCurrentArray();
-
-      if (currentArray.length > 0) {
-        clearTimeout(typingTimeout);
-        const text = currentArray[currentIndex];
-        currentIndex = (currentIndex + 1) % currentArray.length;
-        shownCount = 1;
-        updateProgress();
-        typeText(text);
-        bumpHeart();
-      }
-    }
-
-    function togglePersonalMode() {
-      if (isTyping) return;
-
-      personalMode = !personalMode;
-      personalLabelEl.textContent = personalMode ? "ON" : "OFF";
-      buildCurrentArray();
-
-      if (currentArray.length > 0) {
-        clearTimeout(typingTimeout);
-        const text = currentArray[currentIndex];
-        currentIndex = (currentIndex + 1) % currentArray.length;
-        shownCount = 1;
-        updateProgress();
-        typeText(text);
-        bumpHeart();
-      }
+    function nextLine() {
+      if (isTyping || !currentArray.length) return;
+      totalTaps++;
+      likeBtn.classList.remove('liked');
+      currentMsgIndex = currentIndex % currentArray.length;
+      const text = currentArray[currentMsgIndex];
+      currentIndex = (currentIndex+1) % currentArray.length;
+      shownCount = Math.min(shownCount+1, currentArray.length);
+      updateProgress();
+      bumpHeart();
+      clearTimeout(typingTimeout);
+      typeText(text);
+      updateStats();
     }
 
     function shuffleLines() {
       if (isTyping) return;
+      buildArray();
+      showFirst();
+    }
 
-      buildCurrentArray();
-      if (currentArray.length > 0) {
-        clearTimeout(typingTimeout);
-        const text = currentArray[currentIndex];
-        currentIndex = (currentIndex + 1) % currentArray.length;
-        shownCount = 1;
-        updateProgress();
-        typeText(text);
-        bumpHeart();
-      }
+    function likeMessage() {
+      if (likedMessages.has(currentMsgIndex)) return;
+      likedMessages.add(currentMsgIndex);
+      lovedTotal++;
+      likeBtn.classList.add('liked');
+      likeCountEl.textContent = `${lovedTotal} love${lovedTotal!==1?'s':''}`;
+      lovedCountEl.textContent = lovedTotal;
+      updateStats();
+      bumpHeart();
+    }
+
+    function toggleSecret() {
+      secretVisible = !secretVisible;
+      document.getElementById('secretNote').classList.toggle('visible', secretVisible);
     }
 
     function toggleMusic() {
-      if (!bgMusic) return;
-
       if (!musicPlaying) {
         bgMusic.play().then(() => {
           musicPlaying = true;
-          musicBtn.classList.add("music-on");
-        }).catch(() => {
-          alert("If the music didn’t start, tap again or check your sound 🙂");
-        });
+          musicBtn.classList.add('music-on');
+        }).catch(() => alert("Tap again or check your volume 🎶"));
       } else {
         bgMusic.pause();
         musicPlaying = false;
-        musicBtn.classList.remove("music-on");
+        musicBtn.classList.remove('music-on');
       }
     }
 
-    // Initial message on load
-    window.addEventListener("load", () => {
-      buildCurrentArray();
-      const intro = "I made this tiny corner of the internet just for you, because you deserve cute, emotional and slightly chaotic love energy. 💖";
+    // ── Floating heart pop on click ──
+    function spawnHeartPop() {
+      const el = document.createElement('div');
+      el.textContent = ['❤️','💖','💗','💓','💕'][Math.floor(Math.random()*5)];
+      el.style.cssText = `
+        position:fixed; pointer-events:none; z-index:999;
+        font-size:${1.2+Math.random()}rem;
+        left:${30+Math.random()*40}%;
+        top:${30+Math.random()*30}%;
+        animation: popHeart 1s ease forwards;
+      `;
+      document.body.appendChild(el);
+      setTimeout(()=>el.remove(), 1000);
+    }
+
+    // inject pop keyframe
+    const styleEl = document.createElement('style');
+    styleEl.textContent = `@keyframes popHeart {
+      0%   { transform: scale(0) translateY(0); opacity:1; }
+      60%  { transform: scale(1.3) translateY(-30px); opacity:1; }
+      100% { transform: scale(0.8) translateY(-60px); opacity:0; }
+    }`;
+    document.head.appendChild(styleEl);
+
+    // ── Generate raining hearts ──
+    function createRainHearts() {
+      const container = document.getElementById('heartsRain');
+      const emojis = ['❤️','💖','💗','🌸','✨','💕'];
+      for (let i = 0; i < 14; i++) {
+        const h = document.createElement('div');
+        h.classList.add('rain-heart');
+        h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+        h.style.left = `${Math.random()*100}%`;
+        h.style.fontSize = `${0.8+Math.random()*0.8}rem`;
+        const dur = 8 + Math.random()*10;
+        const delay = Math.random()*12;
+        h.style.animation = `rainFall ${dur}s ${delay}s linear infinite`;
+        container.appendChild(h);
+      }
+    }
+
+    // ── Init ──
+    window.addEventListener('load', () => {
+      createRainHearts();
+      buildArray();
+      const intro = "I made this tiny corner of the internet just for you — because you deserve cute, emotional, and slightly chaotic love energy. 💖 Pick a mood up top!";
+      clearTimeout(typingTimeout);
+      msgEl.classList.remove('visible');
       typeText(intro);
     });
   </script>
